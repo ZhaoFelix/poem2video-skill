@@ -5,7 +5,7 @@ display_name_en: Poem to Video
 description: 以诗入画——把一首古诗做成有旁白、配乐、字幕的诗画影片，并产出抖音/小红书发布文案。适用于「以诗入画」「古诗做成视频」「诗画影片」「诗词短视频」「给古诗配画面/配音」「古风短视频」等需求。内置 8 种画风与 MiMo 全系音色，一键产出 1080p 成片 + 发布文案。
 description_zh: 把一首古诗一键做成有旁白、民乐配乐、横排字幕的 1080p 诗画影片，并生成抖音/小红书发布文案。内置 8 种画风与 MiMo 全系音色。
 description_en: Turn a classical Chinese poem into a narrated 1080p short film with music and subtitles, plus ready-to-post copy for Douyin and Xiaohongshu. 8 art styles and MiMo voices built in.
-version: 1.0.0
+version: 1.1.0
 author: felix
 ---
 
@@ -13,6 +13,20 @@ author: felix
 
 把一首古诗变成一部**能直接发出去的短视频**：每句诗对应一幅画，AI 深情朗诵，
 民乐铺底，横排字幕，片尾全诗 + 作者生平；同时产出抖音与小红书文案。
+
+## 快速上手
+
+```bash
+<py> <SKILL>/scripts/poem2video.py --config poem.json --stage prompts   # 1. 出逐句生图提示词 → 用 ImageGen 逐条生成
+MIMO_API_KEY=... <py> <SKILL>/scripts/poem2video.py --config poem.json --stage tts   # 2. 合成旁白
+<py> <SKILL>/scripts/poem2video.py --config poem.json --stage build     # 3. 一键成片（去水印→渲染→配乐→混音→文案）
+<py> <SKILL>/scripts/poem2video.py --config poem.json --stage check     # 4. 质检，❌ 修完再交付
+```
+
+- 配置：复制 `assets/config.example.json` 改 `poem` / `style` / `voice`，或**直接改 `examples/` 里的现成样例**。
+- 解释器用**托管 venv**（`.../python/envs/default/bin/python3`），否则易缺 `imageio-ffmpeg`。
+- 完整使用说明（依赖清单、阶段速查、参数表、常见问题）：`references/quickstart.md`。
+- 真实演示样例（配置 + 实测数据 + 文案样张）：`examples/README.md`。
 
 ## 何时用
 
@@ -161,8 +175,26 @@ MIMO_API_KEY=... <py> <SKILL>/scripts/poem2video.py --config poem.json --stage t
 - 生成的画作带模型水印时，先跑 `--stage clean` 再去合成。
 - API Key 只走环境变量，不落盘、不出现在交付文件里。
 
+## 演示样例
+
+`examples/` 下有两套可直接跑的完整配置，代表两种典型诉求：
+
+| 样例 | 组合 | 片长 | 定位 |
+|---|---|---|---|
+| `examples/01-jiangxue-ink.poem.json` | `ink` 水墨 + `baihua` 苍老男声 + 古琴 | 约 80s / 2000 帧 | 深夜情绪向、国学号冷启动 |
+| `examples/02-lushan-realistic.poem.json` | `realistic` 写实 + `suda` 清朗男声 + 筝 | 71.6s / 1790 帧 | 品牌宣传、文旅向 |
+
+两者都附**实测质检数据**（帧时序、平滑度、噪声占比、音画差等），
+样例二还带一份**真实生成的发布文案全文**（`02-lushan-realistic.expected-copy.md`）作润色基准。
+用法：复制到自己的项目目录改名 `poem.json` 再改。详见 `examples/README.md`。
+
+想新增样例：复制任一配置文件，改 `poem` / `style` / `voice` 即可。
+
 ## 文档索引
 
+- `README.md` —— **技能总览**：特性、画风/音色库、安装与四步出片、FAQ（GitHub 门面）
+- `references/quickstart.md` —— **使用说明**：依赖准备、五步出片、阶段速查、参数表、常见问题
+- `examples/README.md` —— **演示样例**：两套可跑配置 + 实测数据 + 文案样张
 - `references/styles.md` —— 8 种画风的选择指南与生图要点
 - `references/voices.md` —— MiMo 全系音色、导演指令写法、情绪标签速查
 - `references/copywriting.md` —— 抖音/小红书文案规范与钩子公式
