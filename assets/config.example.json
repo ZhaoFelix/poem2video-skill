@@ -1,0 +1,97 @@
+{
+  "_doc": "poem2video 项目配置。复制本文件到工作目录命名为 poem.json 后修改。除 poem 外均有默认值。",
+  "_usage": "python3 <skill>/scripts/poem2video.py --config poem.json --stage all",
+
+  "poem": {
+    "title": "江雪",
+    "dynasty": "唐",
+    "author": "柳宗元",
+    "genre": "五言绝句",
+    "theme": "孤高清冷",
+    "lines": ["千山鸟飞绝", "万径人踪灭", "孤舟蓑笠翁", "独钓寒江雪"],
+    "_lines_note": "逐句对应画面。句数不限，脚本按 4 句默认节奏排布，5 句以上会自动均分时长。",
+    "line_imagery": {
+      "_doc": "每句的画面意象，用于拼生图提示词。留空则由模型根据诗句自行发挥。",
+      "千山鸟飞绝": "远山层叠、峰峦覆雪，天地空寂不见一只飞鸟，大雪纷飞雾气弥漫",
+      "万径人踪灭": "茫茫雪原上纵横交错的乡间小径全被大雪掩埋，路径隐没，空无一人",
+      "孤舟蓑笠翁": "宽阔寒江上一叶狭小乌篷孤舟漂浮，舟头坐着身披蓑衣头戴斗笠的老翁",
+      "独钓寒江雪": "漫天飞雪中一叶孤舟，披蓑戴笠老翁独坐船头垂钓，江天苍茫一色"
+    },
+    "author_bio": {
+      "years": "773 — 819",
+      "courtesy": "字子厚",
+      "hometown": "河东（今山西运城）人",
+      "facts": [
+        "唐代文学家、思想家，「唐宋八大家」之一",
+        "与韩愈并称「韩柳」，与刘禹锡并称「刘柳」",
+        "永贞革新失败后，贬为永州司马",
+        "《江雪》即作于谪居永州之时"
+      ],
+      "epigraph": "二十字，写尽天地孤寂，亦写尽士人孤高"
+    }
+  },
+
+  "style": "ink",
+  "_style_note": "见 assets/styles.json：ink 水墨国画 / qinglv 青绿山水 / gongbi 工笔重彩 / realistic 电影级写实 / illustration 唯美插画 / moonlight 月下水墨 / papercut 剪纸木版 / dunhuang 敦煌壁画",
+
+  "voice": "baihua",
+  "_voice_note": "见 assets/voices.json：baihua 白桦(男) / suda 苏打(男) / bingtang 冰糖(女) / moli 茉莉(女) / mimo_default 默认；英文 mia、chloe、milo、dean",
+
+  "narration": {
+    "enabled": true,
+    "model": "mimo-v2.5-tts",
+    "_model_note": "改为 mimo-v2.5-tts-voicedesign 可凭空造音色（此时把导演指令写进 voice_design_prompt，voice 字段忽略）",
+    "voice_design_prompt": "",
+    "open": "",
+    "_open_note": "片头报题词，留空自动生成「<题>。<朝代>，<作者>。」",
+    "author": "",
+    "_author_note": "片尾作者介绍词，留空自动由 author_bio.facts 拼装",
+    "repeat_full_poem": true,
+    "_repeat_note": "片尾是否逐句复诵全诗（再念一遍）",
+    "tone_tags": {
+      "_doc": "每句开头的情绪标签，键为诗句内容，值为标签串（空格分隔）。留空则按 theme 自动分配。",
+      "千山鸟飞绝": "深沉 苍老",
+      "万径人踪灭": "苍凉 深沉",
+      "孤舟蓑笠翁": "沉稳 磁性",
+      "独钓寒江雪": "孤高 深沉"
+    }
+  },
+
+  "video": {
+    "resolution": [1920, 1080],
+    "fps": 25,
+    "fade": 1.6,
+    "_fade_note": "镜头叠化时长（秒）。1.0 利落 / 1.6 柔和 / 2.0+ 悠长",
+    "kenburns": true,
+    "_kenburns_note": "推拉运镜。false 则画面静止只做叠化",
+    "scene_numbering": true,
+    "_scene_numbering_note": "字幕左侧是否显示「其一/其二」朱印",
+    "caption": "horizontal",
+    "_caption_note": "horizontal 横排字幕（默认）/ none 不烧字幕（仅旁白）",
+    "title_credit": true,
+    "_title_credit_note": "片尾作者信息卡是否显示"
+  },
+
+  "bgm": {
+    "enabled": true,
+    "mood": "guqin",
+    "_mood_note": "guqin 古琴清冷 / guzheng 筝曲明亮 / xiao 箫声幽远 / silence 静音",
+    "gain": 0.30
+  },
+
+  "copy": {
+    "enabled": true,
+    "platforms": ["douyin", "xiaohongshu"],
+    "account_voice": "素雅",
+    "_account_voice_note": "素雅 无 emoji / 活泼 适度 emoji",
+    "extra_hashtags": [],
+    "author_intro_source": "author_bio"
+  },
+
+  "output": {
+    "dir": "poem2video_out",
+    "basename": "江雪",
+    "video_filename": "江雪·诗画影片.mp4",
+    "_video_filename_note": "留空则用「<basename>·诗画影片.mp4」"
+  }
+}

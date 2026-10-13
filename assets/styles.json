@@ -1,0 +1,228 @@
+{
+  "_doc": "poem2video 风格库。每个风格同时定义：① image_* 用于向 ImageGen 生成画作；② font/palette/caption/card 用于帧合成与渲染。新增风格只需在此追加一项，脚本无需改动。",
+  "_fields": {
+    "image_prefix": "生图提示词的风格前缀（必带画种与介质描述）",
+    "image_suffix": "生图提示词的收尾约束（无文字、无水印、构图等）",
+    "size": "建议生图尺寸",
+    "aspect": "画幅比例",
+    "palette.paper": "文字卡底色（宣纸/底材）RGB",
+    "palette.ink/mid/faint": "三级文字色，由重到轻",
+    "palette.seal_fill/seal_text": "印章底色/字色",
+    "font.family": "字体族键，见 lib_common.FONT_FAMILIES",
+    "font.heavy/regular/light": "该字体族内的字面 index",
+    "caption": "字幕条样式（scrim=底部渐变压暗；underline=是否画装饰线）",
+    "card": "文字卡（片头/片尾/作者）的虚化底与罩层参数"
+  },
+
+  "ink": {
+    "name": "水墨国画",
+    "desc": "宣纸质感、浓淡墨色、大面积留白。最贴古诗气质，动效自然，是默认首选。",
+    "tags": ["极简", "典雅", "留白", "黑白灰"],
+    "image_prefix": "中国水墨国画风格，横构图画作。以浓淡墨色在宣纸上晕染，笔触疏朗写意，",
+    "image_suffix": "色彩仅黑、白、灰墨色（可极少量淡赭色点睛），绝无鲜艳色彩。大面积留白表现空寂与天光，远景淡墨、近景浓墨，讲究虚实与纵深。传统中国画构图，意境清冷深远。画面中不要出现任何文字、印章、签名、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [245, 241, 232],
+      "ink": [40, 40, 40],
+      "mid": [92, 90, 86],
+      "faint": [150, 146, 138],
+      "seal_fill": [166, 58, 43],
+      "seal_text": [245, 241, 232]
+    },
+    "font": { "family": "songti", "heavy": 0, "regular": 6, "light": 3 },
+    "caption": {
+      "text": [247, 244, 236],
+      "scrim": { "y0": 880, "alpha": 0.62, "color": [16, 14, 12] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.45, "offset": [3, 3] },
+      "underline": false
+    },
+    "card": { "veil": 0.88, "blur": 12 }
+  },
+
+  "qinglv": {
+    "name": "青绿山水",
+    "desc": "《千里江山图》式的矿物青绿重彩，石青石绿叠染，赭石勾底，华丽而古朴。",
+    "tags": ["重彩", "华贵", "古意", "青绿"],
+    "image_prefix": "中国青绿山水画风格，横构图。以石青、石绿等矿物颜料层层叠染山峦，赭石打底勾轮廓，泥金点缀云气与山脊，",
+    "image_suffix": "设色浓郁明丽而古雅，山石有矿物颜料的颗粒质感，水面与云雾以淡色晕染。传统长卷式构图，层次深远。画面中不要出现任何文字、印章、签名、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [243, 238, 224],
+      "ink": [34, 48, 44],
+      "mid": [78, 94, 84],
+      "faint": [139, 152, 133],
+      "seal_fill": [168, 58, 44],
+      "seal_text": [245, 241, 228]
+    },
+    "font": { "family": "songti", "heavy": 0, "regular": 6, "light": 3 },
+    "caption": {
+      "text": [250, 247, 236],
+      "scrim": { "y0": 860, "alpha": 0.68, "color": [12, 26, 24] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.5, "offset": [3, 3] },
+      "underline": true,
+      "underline_color": [198, 168, 104]
+    },
+    "card": { "veil": 0.86, "blur": 12 }
+  },
+
+  "gongbi": {
+    "name": "工笔重彩",
+    "desc": "细笔勾勒、层层渲染设色，精致富丽。适合花鸟、庭院、人物细节多的诗。",
+    "tags": ["精致", "富丽", "细腻", "设色"],
+    "image_prefix": "中国工笔重彩画风格，横构图。线条工整细致、勾勒精微，设色层层渲染、明丽饱满而雅致，",
+    "image_suffix": "细节丰富细腻，主体轮廓清晰，背景以淡彩平涂留出层次。绢本设色的温润质感。画面中不要出现任何文字、印章、签名、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [246, 240, 228],
+      "ink": [46, 38, 34],
+      "mid": [104, 84, 74],
+      "faint": [158, 138, 124],
+      "seal_fill": [172, 62, 44],
+      "seal_text": [246, 240, 228]
+    },
+    "font": { "family": "songti", "heavy": 0, "regular": 6, "light": 3 },
+    "caption": {
+      "text": [251, 246, 234],
+      "scrim": { "y0": 870, "alpha": 0.66, "color": [28, 18, 14] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.5, "offset": [3, 3] },
+      "underline": true,
+      "underline_color": [186, 122, 92]
+    },
+    "card": { "veil": 0.87, "blur": 12 }
+  },
+
+  "realistic": {
+    "name": "电影级写实",
+    "desc": "真实光影与材质细节，电影分镜质感，冲击力强。适合边塞、山水、夜泊等大场景。",
+    "tags": ["写实", "电影感", "大片", "光影"],
+    "image_prefix": "电影级写实摄影风格，横构图，宽银幕。真实自然的光影、细腻的材质与大气透视，浅景深与体积光，",
+    "image_suffix": "色调统一克制、暗部有细节，画面干净无杂物，具有电影分镜的叙事张力。高度写实、非插画非卡通。画面中不要出现任何文字、字幕、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [240, 238, 234],
+      "ink": [28, 30, 34],
+      "mid": [84, 88, 94],
+      "faint": [146, 150, 156],
+      "seal_fill": [178, 62, 48],
+      "seal_text": [243, 241, 238]
+    },
+    "font": { "family": "hiragino", "heavy": 2, "regular": 2, "light": 0 },
+    "caption": {
+      "text": [250, 250, 250],
+      "scrim": { "y0": 850, "alpha": 0.72, "color": [6, 8, 12] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.6, "offset": [3, 3] },
+      "underline": false
+    },
+    "card": { "veil": 0.9, "blur": 16 }
+  },
+
+  "illustration": {
+    "name": "唯美插画",
+    "desc": "现代插画海报感，色彩柔和通透、光影干净。适合社媒传播，观感轻快。",
+    "tags": ["清新", "通透", "海报感", "柔和"],
+    "image_prefix": "唯美现代插画海报风格，横构图。色彩柔和通透、饱和度适中，渐变过渡自然，形体简洁优雅，",
+    "image_suffix": "画面干净有设计感，光影柔和，带一点梦幻与诗意，适合作为封面海报。非写实、非照片、非厚涂油画。画面中不要出现任何文字、标题、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [248, 245, 240],
+      "ink": [48, 50, 62],
+      "mid": [104, 108, 124],
+      "faint": [158, 162, 176],
+      "seal_fill": [196, 92, 84],
+      "seal_text": [250, 247, 243]
+    },
+    "font": { "family": "hiragino", "heavy": 2, "regular": 0, "light": 0 },
+    "caption": {
+      "text": [255, 255, 255],
+      "scrim": { "y0": 840, "alpha": 0.58, "color": [30, 34, 52] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.42, "offset": [2, 3] },
+      "underline": false
+    },
+    "card": { "veil": 0.9, "blur": 18 }
+  },
+
+  "moonlight": {
+    "name": "月下水墨",
+    "desc": "冷月色水墨，青蓝墨调、银白月光。适合夜景、思乡、怀人一类清冷之作。",
+    "tags": ["夜景", "清冷", "月色", "青蓝"],
+    "image_prefix": "中国水墨夜景画风，横构图。以青蓝、灰紫色墨调渲染夜色，银白色月光晕染，墨色沉郁而通透，",
+    "image_suffix": "整体冷调偏蓝，月光处提亮形成柔光晕，水面与雾气有微光反射。疏朗写意的笔触，留白表现夜色与雾气。画面中不要出现任何文字、印章、签名、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [232, 236, 242],
+      "ink": [28, 36, 52],
+      "mid": [78, 90, 110],
+      "faint": [136, 148, 168],
+      "seal_fill": [176, 68, 58],
+      "seal_text": [236, 240, 246]
+    },
+    "font": { "family": "songti", "heavy": 0, "regular": 6, "light": 3 },
+    "caption": {
+      "text": [238, 244, 250],
+      "scrim": { "y0": 870, "alpha": 0.66, "color": [8, 12, 22] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.5, "offset": [3, 3] },
+      "underline": false
+    },
+    "card": { "veil": 0.88, "blur": 14 }
+  },
+
+  "papercut": {
+    "name": "剪纸木版",
+    "desc": "平面化高饱和、粗轮廓，剪纸/木版年画的民间气。适合节庆、童趣题材。",
+    "tags": ["民俗", "平面", "高饱和", "装饰"],
+    "image_prefix": "中国民间剪纸与木版年画融合风格，横构图。平面化造型、粗壮有力的轮廓线、高饱和的平涂色块，纹样带有剪纸镂空的装饰感，",
+    "image_suffix": "构图饱满匀称、装饰性强，色彩明快热烈，有手工印制的质朴肌理。非写实、非三维渲染。画面中不要出现任何文字、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [250, 242, 226],
+      "ink": [62, 30, 28],
+      "mid": [130, 62, 52],
+      "faint": [178, 122, 104],
+      "seal_fill": [178, 46, 40],
+      "seal_text": [250, 242, 226]
+    },
+    "font": { "family": "songti", "heavy": 0, "regular": 6, "light": 3 },
+    "caption": {
+      "text": [252, 246, 232],
+      "scrim": { "y0": 860, "alpha": 0.7, "color": [72, 24, 20] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.5, "offset": [3, 3] },
+      "underline": true,
+      "underline_color": [214, 152, 84]
+    },
+    "card": { "veil": 0.85, "blur": 12 }
+  },
+
+  "dunhuang": {
+    "name": "敦煌壁画",
+    "desc": "土红赭石加泥金，斑驳剥落的矿物质感。厚重苍茫，适合边塞、大漠、佛理题材。",
+    "tags": ["厚重", "矿物色", "斑驳", "苍茫"],
+    "image_prefix": "敦煌壁画风格，横构图。以土红、赭石、石青、石绿等矿物颜料绘制，泥金勾线与点缀，",
+    "image_suffix": "墙面有岁月斑驳、剥落与褪色的肌理，色块厚重有颗粒感，造型古拙饱满。整体色调温暖苍茫，带千年古壁的沉静气息。画面中不要出现任何文字、题记、水印或边框。",
+    "size": "1536x1024",
+    "aspect": "3:2",
+    "palette": {
+      "paper": [238, 226, 202],
+      "ink": [58, 36, 26],
+      "mid": [122, 82, 54],
+      "faint": [168, 136, 104],
+      "seal_fill": [162, 54, 38],
+      "seal_text": [238, 226, 202]
+    },
+    "font": { "family": "songti", "heavy": 0, "regular": 6, "light": 3 },
+    "caption": {
+      "text": [248, 240, 222],
+      "scrim": { "y0": 860, "alpha": 0.68, "color": [52, 24, 14] },
+      "shadow": { "enable": true, "color": [0, 0, 0], "alpha": 0.5, "offset": [3, 3] },
+      "underline": true,
+      "underline_color": [198, 154, 84]
+    },
+    "card": { "veil": 0.86, "blur": 14 }
+  }
+}
